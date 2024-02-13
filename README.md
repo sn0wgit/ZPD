@@ -6,6 +6,7 @@ Efektīvākais programmēšanas paradigmas un valodas pāris
 
 **Darba vadītājs**: Rīgas 64. vidusskolas programmēšanas skolotājs Edvards Bukovskis
 <hr>
+
 # Anotācija
 Zinātniski pētniecisko darbu “Efektīvākais programmēšanas paradigmas un valodas pāris” izstrādāja Rīgas 64. vidusskolas 12.DIT klases skolnieks Iaroslav Viazmitin.
 
