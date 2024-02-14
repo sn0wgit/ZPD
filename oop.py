@@ -49,35 +49,21 @@ class PointPerCharacterConvertingSystem:
     def __init__(self, input):
         self.input = input
         self.temp = 0
-        self.points = {"A": 1, "Ā": 2, \
-                       "B": 3, "C": 4, \
-                       "Č": 5, "D": 6, \
-                       "E": 7, "Ē": 8, \
-                       "F": 9, "G": 10,\
-                       "Ģ": 11,"H": 12,\
-                       "I": 13,"Ī": 14,\
-                       "J": 15,"K": 16,\
-                       "Ķ": 17,"L": 18,\
-                       "Ļ": 19,"M": 20,\
-                       "N": 21,"Ņ": 22,\
-                       "O": 23,"P": 24,\
-                       "Q": 25,"R": 26,\
-                       "S": 27,"Š": 28,\
-                       "T": 29,"U": 30,\
-                       "Ū": 31,"V": 32,\
-                       "W": 33,"X": 34,\
-                       "Y": 35,"Z": 36,\
-                       "Ž": 37}
+        self.letters = ["A","Ā","B","C","Č","D","E","Ē","F","G","Ģ","H","I","Ī","J","K","Ķ","L","Ļ","M","N","Ņ","O","P","Q","R","S","Š","T","U","Ū","V","W","X","Y","Z","Ž"]
         self.output = self.stringProcessor()
         
     def stringProcessor(self):
         for letter in self.input:
             if letter.upper() in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                self.temp = self.temp + int(letter)
+                self.temp += int(letter)
                 print(f"+{letter}")
-            elif letter.upper() in self.points:
-                self.temp = self.temp + self.points[letter.upper()]
-                print(f"+{self.points[letter.upper()]}")
+            elif letter.upper() in self.letters:
+                i = 0
+                while letter.upper() != self.letters[i]:
+                    i += 1
+                i += 1
+                self.temp += i
+                print(f"+{i}")
             else: pass
         return self.temp
 
