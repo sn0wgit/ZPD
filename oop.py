@@ -103,10 +103,10 @@ class ComplexIntegerProcessingScript:
             elif self.input in range(0, 5):    self.pascalTriangleRow(self.input)
             elif self.input in range(6, 25):   self.ithFibonacciNumber(self.input)
             elif self.input in range(26, 101): self.nextPrimeNumber(self.input)
-            else:                              self.sumFactorialDigits(self.input)
-            self.decrementBase = self.decrementBase - 1
+            else:                              self.sumDigits(self.input)
+            self.decrementBase -= 1
     
-    def makePositive(self): return self.input * -1
+    def makePositive(self): return abs(self.input)
 
     def pascalTriangleRow(self):
         if   self.input == 0: return 1
@@ -125,8 +125,13 @@ class ComplexIntegerProcessingScript:
             if self.input >= prime:
                 self.input = prime
 
-    def sumFactorialDigits(self):
-        pass
+    def sumDigits(self):
+        sum = 0
+        while number > 0:
+            digit = number % 10
+            sum += digit
+            number = number / 10
+        return sum
 
 class Processing:
     description = "Šī klase ir atbildīga par visu datu apstrādi."
