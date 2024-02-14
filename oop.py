@@ -104,6 +104,7 @@ class ComplexIntegerProcessingScript:
             elif self.input in range(6, 25):   self.ithFibonacciNumber(self.input)
             elif self.input in range(26, 101): self.nextPrimeNumber(self.input)
             else:                              self.sumFactorialDigits(self.input)
+            self.decrementBase = self.decrementBase - 1
     
     def makePositive(self): return self.input * -1
 
