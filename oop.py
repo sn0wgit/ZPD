@@ -53,42 +53,24 @@ class PointPerCharacterConvertingSystem:
     def __init__(self, input):
         self.input = input
         self.output = 0
-        self.points = {"A": 1, \
-                       "Ā": 2, \
-                       "B": 3, \
-                       "C": 4, \
-                       "Č": 5, \
-                       "D": 6, \
-                       "E": 7, \
-                       "Ē": 8, \
-                       "F": 9, \
-                       "G": 10,\
-                       "Ģ": 11,\
-                       "H": 12,\
-                       "I": 13,\
-                       "Ī": 14,\
-                       "J": 15,\
-                       "K": 16,\
-                       "Ķ": 17,\
-                       "L": 18,\
-                       "Ļ": 19,\
-                       "M": 20,\
-                       "N": 21,\
-                       "Ņ": 22,\
-                       "O": 23,\
-                       "P": 24,\
-                       "Q": 25,\
-                       "R": 26,\
-                       "S": 27,\
-                       "Š": 28,\
-                       "T": 29,\
-                       "U": 30,\
-                       "Ū": 31,\
-                       "V": 32,\
-                       "W": 33,\
-                       "X": 34,\
-                       "Y": 35,\
-                       "Z": 36,\
+        self.points = {"A": 1, "Ā": 2, \
+                       "B": 3, "C": 4, \
+                       "Č": 5, "D": 6, \
+                       "E": 7, "Ē": 8, \
+                       "F": 9, "G": 10,\
+                       "Ģ": 11,"H": 12,\
+                       "I": 13,"Ī": 14,\
+                       "J": 15,"K": 16,\
+                       "Ķ": 17,"L": 18,\
+                       "Ļ": 19,"M": 20,\
+                       "N": 21,"Ņ": 22,\
+                       "O": 23,"P": 24,\
+                       "Q": 25,"R": 26,\
+                       "S": 27,"Š": 28,\
+                       "T": 29,"U": 30,\
+                       "Ū": 31,"V": 32,\
+                       "W": 33,"X": 34,\
+                       "Y": 35,"Z": 36,\
                        "Ž": 37}
         self.stringProcessor()
         
@@ -98,7 +80,6 @@ class PointPerCharacterConvertingSystem:
                 self.output = self.output + int(letter)
             elif letter in self.points:
                 self.output = self.output + self.points[letter]
-        print(self.output)
         return self.output
 
     def __repr__(self):
@@ -114,9 +95,37 @@ class FloatToInt:
     
 class ComplexIntegerProcessingScript:
     description = "Šī klase apstrādā skaitļus _(integer)_ ar visdažādākām matemātiskām metodēm 100 reizes"
-    decrementBase = 100
     def __init__(self, input):
         self.input = input
+        self.decrementBase = 100
+        while self.decrementBase > 0:
+            if   self.input < 0:               self.makePositive(self.input)
+            elif self.input in range(0, 5):    self.pascalTriangleRow(self.input)
+            elif self.input in range(6, 25):   self.ithFibonacciNumber(self.input)
+            elif self.input in range(26, 101): self.nextPrimeNumber(self.input)
+            else:                              self.sumFactorialDigits(self.input)
+    
+    def makePositive(self): return self.input * -1
+
+    def pascalTriangleRow(self):
+        if   self.input == 0: return 1
+        elif self.input == 1: return 11
+        elif self.input == 2: return 121
+        elif self.input == 3: return 1331
+        elif self.input == 4: return 14641
+        elif self.input == 5: return 15101051
+    
+    def ithFibonacciNumber(self):
+        return self.ithFibonacciNumber(self.input - 1) + self.ithFibonacciNumber(self.input - 2)
+
+    def nextPrimeNumber(self):
+        self.primes = [29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
+        for prime in self.primes:
+            if self.input >= prime:
+                self.input = prime
+
+    def sumFactorialDigits(self):
+        pass
 
 class Processing:
     description = "Šī klase ir atbildīga par visu datu apstrādi."
@@ -149,4 +158,4 @@ class Processing:
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
                 print(f"## unit{unit} 3 COMPLETE")
 
-iteration = Processing(["HMM", 444, .21])
+iteration = Processing(["HMM", -444, .21])
