@@ -56,14 +56,14 @@ class PointPerCharacterConvertingSystem:
         for letter in self.input:
             if letter.upper() in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                 self.temp += int(letter)
-                print(f"+{letter}")
+                #print(f"+{letter}")
             elif letter.upper() in self.letters:
                 i = 0
                 while letter.upper() != self.letters[i]:
                     i += 1
                 i += 1
                 self.temp += i
-                print(f"+{i}")
+                #print(f"+{i}")
             else: pass
         return self.temp
 
