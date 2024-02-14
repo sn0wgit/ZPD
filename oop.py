@@ -1,20 +1,21 @@
 import json
 
 class InputPrework:
-    description = "Šī klase ir atbildīga par ievaddatu pirmapstrādi.\
-                   Tas iekļauj sevī saraksta _(list)_ lasīšanu un datu definēšanu."
+    description = "Šī klase ir atbildīga par ievaddatu pirmapstrādi - saraksta _(list)_ lasīšanu un datu definēšanu."
     def __init__(self, input):
-        self.input = input
-        self.inputClass = ""
+        self.input = str(input)
+        self.inputClass = "?"
+        print("### unit{unit} 1 - INITIALIZED")
+        self.SetDataClass()
 
-    def NotInt(self):
+    def notint(self):
         notInt = False
         for char in self.input:
-            if char is ".":
+            if char == ".":
                 notInt = True
         return notInt
 
-    def NotFloat(self):
+    def notfloat(self):
         notFloat = False
         for char in self.input:
             if char not in ["-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]:
@@ -22,36 +23,95 @@ class InputPrework:
         return notFloat
 
     def SetDataClass(self):
-        if NotFloat() == True    and NotInt == True :
+        if   self.notfloat() == True and self.notint() == False:
+            print("### unit{unit} 3 - STRING")
+            print(self.notfloat(), self.notint())
             self.inputClass = "STRING"
         
-        elif NotFloat() == True  and NotInt == False:
+        elif self.notfloat() == False and self.notint() == True:
+            print("### unit{unit} 3 - FLOAT")
+            print(self.notfloat(), self.notint())
             self.inputClass = "FLOAT"
             self.input = float(self.input)
         
-        elif NotFloat() == False and NotInt == False:
+        elif self.notfloat() == False and self.notint() == False:
+            print("### unit{unit} 3 - INTEGER")
+            print(self.notfloat(), self.notint())
             self.inputClass = "INTEGER"
             self.input = int(self.input)
 
+        else:
+            print(f"Error: {self.input}")
+            print(self.notfloat(), self.notint())
 
-    def __repr__(self):
-        return self.input
-
-    def ReturnClass(self):
+    def get_class(self):
         return self.inputClass
+
+    def get_input(self):
+        return self.input
 
 class PointPerCharacterConvertingSystem:
     description = "Šī klase ir atbildīga par virknes _(string)_ pārveidošanu."
+
     def __init__(self, input):
         self.input = input
+        self.output = 0
+        self.points = {"A": 1, \
+                       "Ā": 2, \
+                       "B": 3, \
+                       "C": 4, \
+                       "Č": 5, \
+                       "D": 6, \
+                       "E": 7, \
+                       "Ē": 8, \
+                       "F": 9, \
+                       "G": 10,\
+                       "Ģ": 11,\
+                       "H": 12,\
+                       "I": 13,\
+                       "Ī": 14,\
+                       "J": 15,\
+                       "K": 16,\
+                       "Ķ": 17,\
+                       "L": 18,\
+                       "Ļ": 19,\
+                       "M": 20,\
+                       "N": 21,\
+                       "Ņ": 22,\
+                       "O": 23,\
+                       "P": 24,\
+                       "Q": 25,\
+                       "R": 26,\
+                       "S": 27,\
+                       "Š": 28,\
+                       "T": 29,\
+                       "U": 30,\
+                       "Ū": 31,\
+                       "V": 32,\
+                       "W": 33,\
+                       "X": 34,\
+                       "Y": 35,\
+                       "Z": 36,\
+                       "Ž": 37}
+        
+    def stringProcessor(self):
+        for letter in self.input:
+            if letter in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+                self.output = self.output + int(letter)
+            elif letter in self.points:
+                self.output = self.output + self.points[letter]
+            else: pass
+
+    def __repr__(self):
+        return self.output
 
 class FloatToInt:
     description = "Šī klase pārveido daļu _(float)_ par skaitli _(integer)_"
     def __init__(self, input):
-        self.input = int(str(input).replace(".", ""))
+        self.output = int(str(input).replace(".", ""))
 
     def __repr__(self):
-        return self.input
+        return self.output
     
 class ComplexIntegerProcessingScript:
     description = "Šī klase apstrādā skaitļus _(integer)_ ar visdažādākām matemātiskām metodēm 100 reizes"
@@ -59,21 +119,35 @@ class ComplexIntegerProcessingScript:
     def __init__(self, input):
         self.input = input
 
-    def __repr__(self):
-        return self.input
-
 class Processing:
     description = "Šī klase ir atbildīga par visu datu apstrādi."
     def __init__(self, input):
         self.list = input
         for unit in input:
-            self.dataUnit = input[unit]
+            print(f"# unit{unit} START")
+            self.dataUnit = unit
+            print(f"## unit{unit} 1 START")
             self.firstStage = InputPrework(self.dataUnit)
-            if firstStage.ReturnClass() == "STRING":
-                self.secondStage = PointPerCharacterConvertingSystem(firstStage)
-                self.thirdStage = ComplexIntegerProcessingScript(secondStage)
-            elif firstStage.ReturnClass() == "FLOAT":
-                self.secondStage = FloatToInt(firstStage)
-                self.thirdStage = ComplexIntegerProcessingScript(secondStage)
+            print(f"## unit{unit} 1 COMPLETE")
+            print(self.firstStage.get_class(), self.firstStage.get_input())
+            if self.firstStage.get_class() == "STRING":
+                print(f"## unit{unit} 2 START")
+                self.secondStage = PointPerCharacterConvertingSystem(self.firstStage.get_input())
+                print(f"## unit{unit} 2 COMPLETE")
+                print(f"## unit{unit} 3 START")
+                self.thirdStage = ComplexIntegerProcessingScript(self.secondStage)
+                print(f"## unit{unit} 3 COMPLETE")
+            elif self.firstStage.get_class() == "FLOAT":
+                print(f"## unit{unit} 2 START")
+                self.secondStage = FloatToInt(self.firstStage.get_input())
+                print(f"## unit{unit} 2 COMPLETE")
+                print(f"## unit{unit} 3 START")
+                self.thirdStage = ComplexIntegerProcessingScript(self.secondStage)
+                print(f"## unit{unit} 3 COMPLETE")
             else:
-                self.thirdStage = ComplexIntegerProcessingScript(firstStage)
+                print(f"## unit{unit} 2 PASS")
+                print(f"## unit{unit} 3 START")
+                self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
+                print(f"## unit{unit} 3 COMPLETE")
+
+iteration = Processing(["HMM"])
