@@ -81,7 +81,6 @@ class PointPerCharacterConvertingSystem:
             elif letter in self.points:
                 self.temp = self.temp + self.points[letter]
             else: pass
-            print(self.temp)
         return self.temp
 
     def get_output(self):
@@ -95,14 +94,14 @@ class FloatToInt:
     def __init__(self, input):
         self.output = int(str(input).replace(".", ""))
 
-    def __repr__(self):
+    def get_output(self):
         return self.output
     
 class ComplexIntegerProcessingScript:
     description = "Šī klase apstrādā skaitļus _(integer)_ ar visdažādākām matemātiskām metodēm 100 reizes"
     def __init__(self, input):
         self.input = input
-        self.decrementBase = 100
+        self.decrementBase = 100000
         while self.decrementBase > 0:
             self.input = int(self.input)
             if   self.input < 0:               self.makePositive()
@@ -111,15 +110,15 @@ class ComplexIntegerProcessingScript:
             elif self.input in range(26, 101): self.nextPrimeNumber()
             else:                              self.sumDigits()
             self.decrementBase -= 1
-            print(self.input, type(self.input))
+            #print(self.input, type(self.input))
         self.output = self.input
     
     def makePositive(self):
-        print("makePositive")
+        #print("makePositive")
         self.input = abs(self.input)
 
     def pascalTriangleRow(self):
-        print("pascalTriangleRow")
+        #print("pascalTriangleRow")
         if   self.input == 0: self.input = 1
         elif self.input == 1: self.input = 11
         elif self.input == 2: self.input = 121
@@ -128,18 +127,21 @@ class ComplexIntegerProcessingScript:
         elif self.input == 5: self.input = 15101051
     
     def ithFibonacciNumber(self):
-        print("ithFibonacciNumber")
-        return self.ithFibonacciNumber(self.input - 1) + self.ithFibonacciNumber(self.input - 2)
+        #print("ithFibonacciNumber")
+        a, b = 1, 1
+        for _ in range(self.input):
+            a, b = b, a + b
+        self.input = a
 
     def nextPrimeNumber(self):
-        print("nextPrimeNumber")
+        #print("nextPrimeNumber")
         primes = [29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
         for prime in primes:
             if self.input < prime:
                 self.input = prime
 
     def sumDigits(self):
-        print("sumDigits")
+        #print("sumDigits")
         sum = 0
         while self.input > 0:
             digit = self.input % 10
@@ -148,7 +150,7 @@ class ComplexIntegerProcessingScript:
         self.input = sum
     
     def get_output(self):
-        return self.output
+        return int(self.output)
 
 class Processing:
     description = "Šī klase ir atbildīga par visu datu apstrādi."
@@ -174,12 +176,12 @@ class Processing:
                 self.secondStage = FloatToInt(self.firstStage.get_input())
                 print(f"## unit{unit} 2 COMPLETE")
                 print(f"## unit{unit} 3 START")
-                self.thirdStage = ComplexIntegerProcessingScript(self.secondStage)
-                print(f"## unit{unit} 3 COMPLETE =", self.thirdStage)
+                self.thirdStage = ComplexIntegerProcessingScript(self.secondStage.get_output())
+                print(f"## unit{unit} 3 COMPLETE =", self.thirdStage.get_output())
             else:
                 print(f"## unit{unit} 2 PASS")
                 print(f"## unit{unit} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
-                print(f"## unit{unit} 3 COMPLETE =", self.thirdStage)
+                print(f"## unit{unit} 3 COMPLETE =", self.thirdStage.get_output())
 
 iteration = Processing(["HMM", -444, .21])
