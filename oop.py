@@ -52,7 +52,7 @@ class PointPerCharacterConvertingSystem:
 
     def __init__(self, input):
         self.input = input
-        self.output = 0
+        self.temp = 0
         self.points = {"A": 1, "Ā": 2, \
                        "B": 3, "C": 4, \
                        "Č": 5, "D": 6, \
@@ -72,14 +72,19 @@ class PointPerCharacterConvertingSystem:
                        "W": 33,"X": 34,\
                        "Y": 35,"Z": 36,\
                        "Ž": 37}
-        self.stringProcessor()
+        self.output = self.stringProcessor()
         
     def stringProcessor(self):
         for letter in self.input:
             if letter in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                self.output = self.output + int(letter)
+                self.temp = self.temp + int(letter)
             elif letter in self.points:
-                self.output = self.output + self.points[letter]
+                self.temp = self.temp + self.points[letter]
+            else: pass
+            print(self.temp)
+        return self.temp
+
+    def get_output(self):
         return self.output
 
     def __repr__(self):
@@ -99,39 +104,51 @@ class ComplexIntegerProcessingScript:
         self.input = input
         self.decrementBase = 100
         while self.decrementBase > 0:
-            if   self.input < 0:               self.makePositive(self.input)
-            elif self.input in range(0, 5):    self.pascalTriangleRow(self.input)
-            elif self.input in range(6, 25):   self.ithFibonacciNumber(self.input)
-            elif self.input in range(26, 101): self.nextPrimeNumber(self.input)
-            else:                              self.sumDigits(self.input)
+            self.input = int(self.input)
+            if   self.input < 0:               self.makePositive()
+            elif self.input in range(0, 5):    self.pascalTriangleRow()
+            elif self.input in range(6, 25):   self.ithFibonacciNumber()
+            elif self.input in range(26, 101): self.nextPrimeNumber()
+            else:                              self.sumDigits()
             self.decrementBase -= 1
+            print(self.input, type(self.input))
+        self.output = self.input
     
-    def makePositive(self): return abs(self.input)
+    def makePositive(self):
+        print("makePositive")
+        self.input = abs(self.input)
 
     def pascalTriangleRow(self):
-        if   self.input == 0: return 1
-        elif self.input == 1: return 11
-        elif self.input == 2: return 121
-        elif self.input == 3: return 1331
-        elif self.input == 4: return 14641
-        elif self.input == 5: return 15101051
+        print("pascalTriangleRow")
+        if   self.input == 0: self.input = 1
+        elif self.input == 1: self.input = 11
+        elif self.input == 2: self.input = 121
+        elif self.input == 3: self.input = 1331
+        elif self.input == 4: self.input = 14641
+        elif self.input == 5: self.input = 15101051
     
     def ithFibonacciNumber(self):
+        print("ithFibonacciNumber")
         return self.ithFibonacciNumber(self.input - 1) + self.ithFibonacciNumber(self.input - 2)
 
     def nextPrimeNumber(self):
-        self.primes = [29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
-        for prime in self.primes:
-            if self.input >= prime:
+        print("nextPrimeNumber")
+        primes = [29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]
+        for prime in primes:
+            if self.input < prime:
                 self.input = prime
 
     def sumDigits(self):
+        print("sumDigits")
         sum = 0
-        while number > 0:
-            digit = number % 10
+        while self.input > 0:
+            digit = self.input % 10
             sum += digit
-            number = number / 10
-        return sum
+            self.input = self.input / 10
+        self.input = sum
+    
+    def get_output(self):
+        return self.output
 
 class Processing:
     description = "Šī klase ir atbildīga par visu datu apstrādi."
@@ -147,21 +164,22 @@ class Processing:
             if self.firstStage.get_class() == "STRING":
                 print(f"## unit{unit} 2 START")
                 self.secondStage = PointPerCharacterConvertingSystem(self.firstStage.get_input())
+                print(self.secondStage.get_output())
                 print(f"## unit{unit} 2 COMPLETE")
                 print(f"## unit{unit} 3 START")
-                self.thirdStage = ComplexIntegerProcessingScript(self.secondStage)
-                print(f"## unit{unit} 3 COMPLETE")
+                self.thirdStage = ComplexIntegerProcessingScript(self.secondStage.get_output())
+                print(f"## unit{unit} 3 COMPLETE", self.thirdStage.get_output())
             elif self.firstStage.get_class() == "FLOAT":
                 print(f"## unit{unit} 2 START")
                 self.secondStage = FloatToInt(self.firstStage.get_input())
                 print(f"## unit{unit} 2 COMPLETE")
                 print(f"## unit{unit} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.secondStage)
-                print(f"## unit{unit} 3 COMPLETE")
+                print(f"## unit{unit} 3 COMPLETE =", self.thirdStage)
             else:
                 print(f"## unit{unit} 2 PASS")
                 print(f"## unit{unit} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
-                print(f"## unit{unit} 3 COMPLETE")
+                print(f"## unit{unit} 3 COMPLETE =", self.thirdStage)
 
 iteration = Processing(["HMM", -444, .21])
