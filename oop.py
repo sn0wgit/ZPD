@@ -24,19 +24,16 @@ class InputPrework:
 
     def SetDataClass(self):
         if   self.notfloat() == True and self.notint() == False:
-            print("### unit{unit} 3 - STRING")
-            print(self.notfloat(), self.notint())
+            print("### unit{unit} 1 - STRING", self.notfloat(), self.notint())
             self.inputClass = "STRING"
         
         elif self.notfloat() == False and self.notint() == True:
-            print("### unit{unit} 3 - FLOAT")
-            print(self.notfloat(), self.notint())
+            print("### unit{unit} 1 - FLOAT", self.notfloat(), self.notint())
             self.inputClass = "FLOAT"
             self.input = float(self.input)
         
         elif self.notfloat() == False and self.notint() == False:
-            print("### unit{unit} 3 - INTEGER")
-            print(self.notfloat(), self.notint())
+            print("### unit{unit} 1 - INTEGER", self.notfloat(), self.notint())
             self.inputClass = "INTEGER"
             self.input = int(self.input)
 
@@ -93,6 +90,7 @@ class PointPerCharacterConvertingSystem:
                        "Y": 35,\
                        "Z": 36,\
                        "Ž": 37}
+        self.stringProcessor()
         
     def stringProcessor(self):
         for letter in self.input:
@@ -100,7 +98,8 @@ class PointPerCharacterConvertingSystem:
                 self.output = self.output + int(letter)
             elif letter in self.points:
                 self.output = self.output + self.points[letter]
-            else: pass
+        print(self.output)
+        return self.output
 
     def __repr__(self):
         return self.output
@@ -150,4 +149,4 @@ class Processing:
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
                 print(f"## unit{unit} 3 COMPLETE")
 
-iteration = Processing(["HMM"])
+iteration = Processing(["HMM", 444, .21])
