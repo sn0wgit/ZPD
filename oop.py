@@ -5,7 +5,7 @@ class InputPrework:
     def __init__(self, input):
         self.input = str(input)
         self.inputClass = "?"
-        print("### unit {unit} 1 - INITIALIZED")
+        print("### item {item} 1 - INITIALIZED")
         self.SetDataClass()
 
     def notint(self):
@@ -24,17 +24,17 @@ class InputPrework:
 
     def SetDataClass(self):
         if   self.notfloat() == False and self.notint() == True:
-            print("### unit {unit} 1 - FLOAT", self.notfloat(), self.notint())
+            print("### item {item} 1 - FLOAT", self.notfloat(), self.notint())
             self.inputClass = "FLOAT"
             self.input = float(self.input)
         
         elif self.notfloat() == False and self.notint() == False:
-            print("### unit {unit} 1 - INTEGER", self.notfloat(), self.notint())
+            print("### item {item} 1 - INTEGER", self.notfloat(), self.notint())
             self.inputClass = "INTEGER"
             self.input = int(self.input)
 
         else:
-            print("### unit {unit} 1 - STRING", self.notfloat(), self.notint())
+            print("### item {item} 1 - STRING", self.notfloat(), self.notint())
             self.inputClass = "STRING"
 
     def get_class(self):
@@ -48,29 +48,26 @@ class PointPerCharacterConvertingSystem:
 
     def __init__(self, input):
         self.input = input
-        self.temp = 0
         self.letters = ["A","Ā","B","C","Č","D","E","Ē","F","G","Ģ","H","I","Ī","J","K","Ķ","L","Ļ","M","N","Ņ","O","P","Q","R","S","Š","T","U","Ū","V","W","X","Y","Z","Ž"]
         self.output = self.stringProcessor()
         
     def stringProcessor(self):
+        points = 0
         for letter in self.input:
             if letter.upper() in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
-                self.temp += int(letter)
+                points += int(letter)
                 #print(f"+{letter}")
             elif letter.upper() in self.letters:
                 i = 0
                 while letter.upper() != self.letters[i]:
                     i += 1
                 i += 1
-                self.temp += i
+                points += i
                 #print(f"+{i}")
             else: pass
-        return self.temp
+        return points
 
     def get_output(self):
-        return self.output
-
-    def __repr__(self):
         return self.output
 
 class FloatToInt:
@@ -85,15 +82,15 @@ class ComplexIntegerProcessingScript:
     description = "Šī klase apstrādā skaitļus _(integer)_ ar visdažādākām matemātiskām metodēm 100 reizes"
     def __init__(self, input):
         self.input = input
-        self.decrementBase = 100000
-        while self.decrementBase > 0:
+        decrementBase = 100000
+        while decrementBase > 0:
             self.input = int(self.input)
             if   self.input < 0:               self.makePositive()
             elif self.input in range(0, 5):    self.pascalTriangleRow()
             elif self.input in range(6, 25):   self.ithFibonacciNumber()
             elif self.input in range(26, 101): self.nextPrimeNumber()
             else:                              self.sumDigits()
-            self.decrementBase -= 1
+            decrementBase -= 1
             #print(self.input, type(self.input))
         self.output = self.input
     
@@ -140,33 +137,31 @@ class Processing:
     description = "Šī klase ir atbildīga par visu datu apstrādi."
     def __init__(self, input):
         self.list = input
-        for unit in input:
-            print(f"# unit {unit} START")
-            self.dataUnit = unit
-            print(f"## unit {unit} 1 START")
-            self.firstStage = InputPrework(self.dataUnit)
-            print(f"## unit {unit} 1 COMPLETE")
+        for item in input:
+            print(f"# item {item} START")
+            self.dataitem = item
+            print(f"## item {item} 1 START")
+            self.firstStage = InputPrework(self.dataitem)
+            print(f"## item {item} 1 COMPLETE")
             print(self.firstStage.get_class(), self.firstStage.get_input())
             if self.firstStage.get_class() == "STRING":
-                print(f"## unit {unit} 2 START")
+                print(f"## item {item} 2 START")
                 self.secondStage = PointPerCharacterConvertingSystem(self.firstStage.get_input())
                 print(self.secondStage.get_output())
-                print(f"## unit {unit} 2 COMPLETE")
-                print(f"## unit {unit} 3 START")
+                print(f"## item {item} 2 COMPLETE")
+                print(f"## item {item} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.secondStage.get_output())
-                print(f"## unit {unit} 3 COMPLETE", self.thirdStage.get_output())
             elif self.firstStage.get_class() == "FLOAT":
-                print(f"## unit {unit} 2 START")
+                print(f"## item {item} 2 START")
                 self.secondStage = FloatToInt(self.firstStage.get_input())
-                print(f"## unit {unit} 2 COMPLETE")
-                print(f"## unit {unit} 3 START")
+                print(f"## item {item} 2 COMPLETE")
+                print(f"## item {item} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.secondStage.get_output())
-                print(f"## unit {unit} 3 COMPLETE =", self.thirdStage.get_output())
             else:
-                print(f"## unit {unit} 2 PASS")
-                print(f"## unit {unit} 3 START")
+                print(f"## item {item} 2 PASS")
+                print(f"## item {item} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
-                print(f"## unit {unit} 3 COMPLETE =", self.thirdStage.get_output())
+            print(f"## item {item} 3 COMPLETE", self.thirdStage.get_output())
 
 with open('input.json', 'r') as f:
     file = json.load(f)
