@@ -3,8 +3,7 @@ import json
 class InputPrework:
     description = "Šī klase ir atbildīga par ievaddatu pirmapstrādi - saraksta _(list)_ lasīšanu un datu definēšanu."
     def __init__(self, input):
-        self.input = str(input)
-        self.inputClass = "?"
+        self.input, self.inputClass = str(input), "?"
         print("### item {item} 1 - INITIALIZED")
         self.SetDataClass()
 
@@ -25,13 +24,11 @@ class InputPrework:
     def SetDataClass(self):
         if   self.notfloat() == False and self.notint() == True:
             print("### item {item} 1 - FLOAT", self.notfloat(), self.notint())
-            self.inputClass = "FLOAT"
-            self.input = float(self.input)
+            self.inputClass, self.input = "FLOAT", float(self.input)
         
         elif self.notfloat() == False and self.notint() == False:
             print("### item {item} 1 - INTEGER", self.notfloat(), self.notint())
-            self.inputClass = "INTEGER"
-            self.input = int(self.input)
+            self.inputClass, self.input = "INTEGER", int(self.input)
 
         else:
             print("### item {item} 1 - STRING", self.notfloat(), self.notint())
@@ -84,7 +81,6 @@ class ComplexIntegerProcessingScript:
         self.input = input
         decrementBase = 100000
         while decrementBase > 0:
-            self.input = int(self.input)
             if   self.input < 0:               self.makePositive()
             elif self.input in range(0, 5):    self.pascalTriangleRow()
             elif self.input in range(6, 25):   self.ithFibonacciNumber()
@@ -128,7 +124,7 @@ class ComplexIntegerProcessingScript:
             digit = self.input % 10
             sum += digit
             self.input = self.input / 10
-        self.input = sum
+        self.input = int(sum)
     
     def get_output(self):
         return int(self.output)
@@ -159,6 +155,7 @@ class Processing:
                 self.thirdStage = ComplexIntegerProcessingScript(self.secondStage.get_output())
             else:
                 print(f"## item {item} 2 PASS")
+                print(self.firstStage.get_input())
                 print(f"## item {item} 3 START")
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
             print(f"## item {item} 3 COMPLETE", self.thirdStage.get_output())

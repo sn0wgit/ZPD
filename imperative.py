@@ -7,31 +7,25 @@ for item_raw in list:
     print("STARTED", item_raw)
     print("First Stage")
     # First Stage - InputPrework
-    item1 = str(item_raw)
+    item = str(item_raw)
     notInt, notFloat = False, False
-    for char in item1:
+    for char in item:
         if char not in ["-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]:
             notFloat = True
         if char == ".":
             notInt = True
-    if   notFloat == False and notInt == True:
-        itemClass = "FLOAT"
-        item1 = float(item_raw)
-    elif notFloat == False and notInt == False:
-        itemClass = "INTEGER"
-        item1 = int(item_raw)
-    else:
-        itemClass = "STRING"
-        item1 = str(item_raw)
-    print(f"{item1} is {itemClass}")
+    if   notFloat == False and notInt == True:  itemClass, item = "FLOAT",   float(item_raw)
+    elif notFloat == False and notInt == False: itemClass, item = "INTEGER", int(item_raw)
+    else:                                       itemClass, item = "STRING",  str(item_raw)
+    print(f"{item} is {itemClass}")
 
     # Second Stage
     integ = 0
     ## STRING
     if itemClass == "STRING":
-        print("Second Stage (STRING)", item1)
+        print("Second Stage (STRING)", item)
         letters = ["A","Ā","B","C","Č","D","E","Ē","F","G","Ģ","H","I","Ī","J","K","Ķ","L","Ļ","M","N","Ņ","O","P","Q","R","S","Š","T","U","Ū","V","W","X","Y","Z","Ž"]
-        for letter in item1:
+        for letter in item:
             #print(letter.upper())
             if letter.upper() in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                 integ += int(letter)
@@ -43,16 +37,16 @@ for item_raw in list:
                 i += 1
                 integ += i
                 #print(f"+{i}")
-        #print("Second Stage (STRING)", f"[{item1}] = [{integ}]")
+        #print("Second Stage (STRING)", f"[{item}] = [{integ}]")
     ## FLOAT
     elif itemClass == "FLOAT":
-        print("Second Stage (FLOAT)", item1)
-        floatstring = str(item1)
+        print("Second Stage (FLOAT)", item)
+        floatstring = str(item)
         integ = int(floatstring.replace(".", ""))
     ## INTEGER
     elif itemClass == "INTEGER":
-        print("Second Stage (INTEGER), PASS", item1)
-        integ = item1
+        print("Second Stage (INTEGER), PASS", item)
+        integ = item
     
     # Third Stage
     print("Third Stage", integ)
@@ -90,11 +84,10 @@ for item_raw in list:
             digit = input % 10
             sum += digit
             input = input / 10
-        input = sum
+        input = int(sum)
         return input
     decrementBase = 100000
     while decrementBase > 0:
-        integ = int(integ)
         if   integ < 0:               integ = makePositive(integ)
         elif integ in range(0, 5):    integ = pascalTriangleRow(integ)
         elif integ in range(6, 25):   integ = ithFibonacciNumber(integ)
