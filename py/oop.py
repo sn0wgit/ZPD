@@ -5,7 +5,7 @@ class InputPrework:
     def __init__(self, input):
         self.input, self.inputClass = str(input), "?"
         print("### item {item} 1 - INITIALIZED")
-        self.SetDataClass()
+        self.setDataClass()
 
     def notint(self):
         notInt = False
@@ -21,7 +21,7 @@ class InputPrework:
                 notFloat = True
         return notFloat
 
-    def SetDataClass(self):
+    def setDataClass(self):
         if   self.notfloat() == False and self.notint() == True:
             print("### item {item} 1 - FLOAT", self.notfloat(), self.notint())
             self.inputClass, self.input = "FLOAT", float(self.input)
@@ -61,7 +61,6 @@ class PointPerCharacterConvertingSystem:
                 i += 1
                 points += i
                 #print(f"+{i}")
-            else: pass
         return points
 
     def get_output(self):
@@ -160,7 +159,7 @@ class Processing:
                 self.thirdStage = ComplexIntegerProcessingScript(self.firstStage.get_input())
             print(f"## item {item} 3 COMPLETE", self.thirdStage.get_output())
 
-with open('input.json', 'r') as f:
+with open('./input.json', 'r') as f:
     file = json.load(f)
 
 iteration = Processing(file)

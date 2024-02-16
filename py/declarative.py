@@ -1,5 +1,5 @@
 import json
-with open('input.json', 'r') as file: list = json.load(file)
+with open('./input.json', 'r') as file: list = json.load(file)
 
 for item_raw in list: 
     item = str(item_raw)
