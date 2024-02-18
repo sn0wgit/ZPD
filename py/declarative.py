@@ -20,7 +20,7 @@ for item_raw in list:
         else:
             try: item, itemClass = str(item), "STRING"
             except: pass
-    print(f"{item} is {itemClass}")
+    #print(f"{item} is {itemClass}")
     if itemClass == "STRING":
         integ = 0
         for letter in item:
@@ -33,13 +33,13 @@ for item_raw in list:
                 points += 1
                 integ += points
             else: pass
-        print(integ)
+        #print(integ)
     elif itemClass == "FLOAT":
         integ = int(str(item).replace(".", ""))
-        print(integ)
+        #print(integ)
     else:
         integ = item
-        print(integ)
+        #print(integ)
     decrementBase = 100000
     while decrementBase > 0:
         if   integ < 0:
@@ -67,4 +67,4 @@ for item_raw in list:
                 integ = integ / 10
             integ = int(sum)
         decrementBase -= 1
-    print(integ)
+    #print(integ)
