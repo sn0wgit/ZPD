@@ -1,28 +1,28 @@
 import json
-with open('./input.json', 'r') as file: list = json.load(file)
+with open('./input.json', 'r') as file: LIST:list[str|int|float] = json.load(file)
 
-for item_raw in list: 
-    item = str(item_raw)
-    notInt = False
-    notFloat = False
+for item_raw in LIST: 
+    item:str|int|float = str(item_raw)
+    notInt:bool = False
+    notFloat:bool = False
     for i in ["-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]:
         if item.find(i) != -1:
             if item.find(".") != -1:
                 try:
-                    item, itemClass = float(item), "FLOAT"
+                    item; itemClass:str = float(item), "FLOAT"
                     break; break
                 except: break; break
             else:
                 try:
-                    item, itemClass = int(item), "INTEGER"
+                    item; itemClass:str = int(item), "INTEGER"
                     break; break
                 except: break; break
         else:
-            try: item, itemClass = str(item), "STRING"
+            try: item; itemClass:str = str(item), "STRING"
             except: pass
     #print(f"{item} is {itemClass}")
     if itemClass == "STRING":
-        integ = 0
+        integ:int = 0
         for letter in item:
             if letter.upper() in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]:
                 integ += int(letter)
@@ -35,14 +35,14 @@ for item_raw in list:
             else: pass
         #print(integ)
     elif itemClass == "FLOAT":
-        integ = int(str(item).replace(".", ""))
+        integ:int = int(str(item).replace(".", ""))
         #print(integ)
     else:
-        integ = item
+        integ:int = item
         #print(integ)
-    decrementBase = 100000
+    decrementBase:int = 100000
     while decrementBase > 0:
-        if   integ < 0:
+        if integ < 0:
             integ = abs(integ)
         elif integ in range(0, 5):
             if   integ == 0: integ = 1
@@ -58,9 +58,10 @@ for item_raw in list:
             integ = a
         elif integ in range(26, 101):
             for prime in [29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101]:
-                if integ < prime: integ = prime
+                if integ < prime:
+                    integ = prime
         else:                  
-            sum = 0
+            sum:int = 0
             while integ > 0:
                 digit = integ % 10
                 sum += digit
